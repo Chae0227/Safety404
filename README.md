@@ -22,21 +22,19 @@ AI의 정보 정확도를 스스로 검증함으로써
 
 ---
 
-# 👩‍💻 개발자 소개 — 김은채 (Eunchae Kim)
+# 👩‍💻 개발자
 
 <p>
   <img src="https://avatars.githubusercontent.com/Chae0227" width="130" style="border-radius:12px;margin-bottom:10px;" />
 </p>
 
-Frontend / AI Interaction Developer
+**Full-Stack Web Developer & AI Interaction Engineer**
 
-- 콘텐츠IT 기반 프론트엔드 개발자  
-- AI 인터랙션·UX/UI·웹 디자인에 강점  
-- Spring Boot · Next.js · Supabase · Gemini API  
-- 프로젝트 기획부터 설계·구현·애니메이션까지 풀스택 가능  
-
-“기술이 사고를 대체하는 시대,  
-사고를 복원하는 서비스를 만들고 싶습니다.”
+- **풀스택 개발자**
+- 백엔드 중심 (Spring Boot · Supabase · API 설계 · DB 모델링)
+- 프론트엔드(UI/UX · 인터랙션 구현)도 강점 보유
+- Gemini API · AI 인퍼런스 시스템 제작 경험
+- 프로젝트 기획 → 구조 설계 → 개발 → 애니메이션까지 전체 주도 가능
 
 ---
 
