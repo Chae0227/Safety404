@@ -1,0 +1,304 @@
+/* RESET */
+body {
+    margin: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #ffffff;
+    color: #222;
+}
+
+/* ---------------------------------------------
+   HEADER
+--------------------------------------------- */
+.header {
+    width: 100%;
+    background: #ffffff;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 20;
+}
+
+.header-inner {
+    max-width: 1200px;
+    margin: auto;
+    height: 65px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+/* Desktop Nav */
+.desktop-nav {
+    display: flex;
+    gap: 25px;
+}
+
+.desktop-nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+}
+
+/* Mobile Menu Button */
+.mobile-menu-btn {
+    display: none;
+    font-size: 26px;
+    cursor: pointer;
+}
+
+/* Mobile dropdown */
+.mobile-nav {
+    display: none;
+    flex-direction: column;
+    background: white;
+    border-bottom: 1px solid #eee;
+    padding: 10px 20px;
+}
+.mobile-nav a {
+    padding: 10px 0;
+    text-decoration: none;
+    color: #333;
+}
+
+/* ---------------------------------------------
+   HERO SECTION (Glassmorphism)
+--------------------------------------------- */
+.hero {
+    position: relative;
+    height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 20px;
+    background: #fff6df;
+}
+
+/* 뒤 Glow */
+.hero .glow {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(255,170,60,0.45), rgba(255,255,255,0));
+    filter: blur(80px);
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+/* 유리카드 */
+.glass-card {
+    position: relative;
+    z-index: 2;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.45);
+    border-radius: 18px;
+    padding: 40px 45px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.4);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+}
+
+.glass-card h1 {
+    font-size: 34px;
+    margin-bottom: 12px;
+    font-weight: 700;
+    color: #222;
+}
+
+.glass-card p {
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.hero-btn {
+    display: inline-block;
+    padding: 12px 25px;
+    background: linear-gradient(90deg, #ffa93d, #ff8612);
+    color: #fff;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(255,153,0,0.3);
+    transition: 0.2s;
+}
+
+.hero-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(255,153,0,0.35);
+}
+
+/* ---------------------------------------------
+   INTRO
+--------------------------------------------- */
+.intro {
+    padding: 70px 20px;
+    text-align: center;
+}
+
+.intro h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.intro p {
+    font-size: 17px;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* ---------------------------------------------
+   FEATURES
+--------------------------------------------- */
+.features {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 60px 20px;
+}
+
+.feature-card {
+    width: 300px;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    text-align: center;
+}
+
+.feature-card h3 {
+    font-size: 22px;
+    margin-bottom: 12px;
+}
+
+.feature-card p {
+    color: #555;
+    margin-bottom: 18px;
+}
+
+.feature-card a {
+    color: #ff7a12;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* ---------------------------------------------
+   RECENT
+--------------------------------------------- */
+.recent {
+    padding: 80px 20px;
+    background: #fff;
+}
+
+.recent h2 {
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 40px;
+}
+
+.recent-list {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.recent-card {
+    width: 280px;
+    background: #fafafa;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.more {
+    display: block;
+    text-align: center;
+    margin-top: 30px;
+    color: #ff7a12;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* ---------------------------------------------
+   BANNER
+--------------------------------------------- */
+.banner {
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.banner-img {
+    height: 200px;
+    background: #e9e9e9;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+}
+
+/* ---------------------------------------------
+   FOOTER
+--------------------------------------------- */
+.footer {
+    padding: 30px;
+    background: #111;
+    color: #eee;
+    text-align: center;
+    margin-top: 60px;
+}
+
+/* ---------------------------------------------
+   MOBILE RESPONSIVE
+--------------------------------------------- */
+@media (max-width: 768px) {
+
+    .desktop-nav {
+        display: none;
+    }
+
+    .mobile-menu-btn {
+        display: block;
+    }
+
+    .mobile-nav {
+        display: none;
+    }
+
+    .features {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .recent-list {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero {
+        height: 55vh;
+        padding: 15px;
+    }
+
+    .glass-card {
+        width: 90%;
+        padding: 30px 20px;
+    }
+
+    .glass-card h1 {
+        font-size: 24px;
+    }
+
+    .glass-card p {
+        font-size: 14px;
+    }
+}

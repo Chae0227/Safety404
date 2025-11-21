@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Chat · Safety404</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/chat.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+    <div class="header-inner">
+        <div class="logo">404 Safety Not Found</div>
+        <nav class="desktop-nav">
+            <a href="/main">Home</a>
+            <a href="/chat" class="active">AI 체험</a>
+            <a href="/verify">정보 검증</a>
+        </nav>
+    </div>
+</header>
+
+<div class="chat-container">
+
+    <!-- 작은 게이지 카드 -->
+    <div class="trust-card">
+        <span class="trust-title">AI 의존 게이지</span>
+        <div class="trust-bar">
+            <div class="trust-fill" id="trustFill"></div>
+        </div>
+        <div id="trustPercent">0%</div>
+    </div>
+
+    <!-- 채팅 카드 -->
+    <div class="chat-card">
+        <div class="chat-area" id="chatArea"></div>
+
+        <!-- 입력창 -->
+        <div class="chat-input">
+            <input type="text" id="userInput" placeholder="메시지를 입력하세요...">
+            <button id="sendBtn">전송</button>
+        </div>
+    </div>
+
+</div>
+
+<script src="/js/chat.js"></script>
+</body>
+</html>

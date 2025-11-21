@@ -1,0 +1,147 @@
+/* RESET */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #f7f7f9;
+}
+
+/* HEADER */
+.header {
+    width: 100%;
+    background: #ffffff;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 20;
+}
+.header-inner {
+    max-width: 1200px;
+    height: 65px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+}
+.desktop-nav a {
+    margin-left: 22px;
+    text-decoration: none;
+    color: #444;
+    font-weight: 500;
+}
+.desktop-nav .active {
+    color: #ff8c25;
+}
+
+/* -------- CHAT CONTAINER -------- */
+.chat-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* -------- AI 의존 게이지 카드 -------- */
+.trust-card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 18px 22px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.06);
+    margin-bottom: 25px;
+}
+
+.trust-title {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.trust-bar {
+    width: 100%;
+    height: 12px;
+    background: #e9e9e9;
+    border-radius: 8px;
+    margin: 10px 0;
+    overflow: hidden;
+}
+
+.trust-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #5cb85c, #ffd659, #ffa533, #ff5b5b);
+    transition: 0.4s;
+}
+
+#trustPercent {
+    font-size: 14px;
+    text-align: right;
+    color: #555;
+}
+
+/* -------- CHAT BOX -------- */
+.chat-card {
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.06);
+    padding: 20px;
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-area {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+/* AI 메시지 */
+.msg-ai {
+    max-width: 80%;
+    background: #fff0d8;
+    padding: 14px 16px;
+    border-radius: 16px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+/* User 메시지 */
+.msg-user {
+    max-width: 80%;
+    margin-left: auto;
+    background: #d4ecff;
+    padding: 14px 16px;
+    border-radius: 16px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+/* -------- INPUT -------- */
+.chat-input {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    font-size: 16px;
+    outline: none;
+}
+
+.chat-input button {
+    padding: 12px 22px;
+    border: none;
+    background: #ff8c25;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.chat-input button:hover {
+    background: #ff7a00;
+}
