@@ -30,6 +30,7 @@ AI의 정보 정확도를 스스로 검증함으로써
 
 **Full-Stack Web Developer & AI Interaction Engineer**
 
+- 김은채 (KIM EUNCHAE)
 - **풀스택 개발자**
 - 백엔드 중심 (Spring Boot · Supabase · API 설계 · DB 모델링)
 - 프론트엔드(UI/UX · 인터랙션 구현)도 강점 보유
