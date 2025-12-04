@@ -1,0 +1,175 @@
+/* 전체 배경 – 기존 톤 유지 + 은은한 텍스처 */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+    background: linear-gradient(135deg, #fff2e0 0%, #ffe0c2 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 메인 2컬럼 래퍼 – 입체감 업그레이드 */
+.login-wrapper {
+    width: 900px;
+    height: 520px;
+    background: white;
+    border-radius: 28px;
+    box-shadow:
+        0 12px 30px rgba(255, 140, 40, 0.18),
+        0 4px 14px rgba(0,0,0,0.05);
+    display: flex;
+    overflow: hidden;
+    position: relative;
+}
+
+/* subtle 테두리 */
+.login-wrapper::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 28px;
+    border: 1px solid rgba(255, 180, 120, 0.25);
+    pointer-events: none;
+}
+
+/* 왼쪽 – 기존 색 유지 + 깊이감만 추가 */
+.login-left {
+    width: 45%;
+    background: linear-gradient(160deg, #ffa93d 0%, #ff8612 100%);
+    color: white;
+    padding: 60px 45px;
+    position: relative;
+}
+
+/* 패턴 – 거의 안보일 정도로 은은함 */
+.login-left::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url('https://www.transparenttextures.com/patterns/cross-scratches.png');
+    opacity: 0.06;
+}
+
+/* 타이틀 */
+.login-left h2 {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.3;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    letter-spacing: -0.2px;
+}
+
+/* 서브 텍스트 */
+.login-left p {
+    margin-top: 20px;
+    opacity: 0.92;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+/* 오른쪽 */
+.login-right {
+    width: 55%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 카드 – 부드러운 depth 추가 */
+.auth-card {
+    width: 320px;
+    animation: fadeUp 0.5s ease-out;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.auth-card h1 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #ff7a12;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+}
+
+/* Label */
+.auth-card label {
+    font-size: 14px;
+    color: #444;
+    margin-bottom: 6px;
+    display: block;
+}
+
+/* Input – 부드러운 그림자 추가 */
+.auth-card input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1.5px solid #ffd2a1;
+    font-size: 14px;
+    margin-bottom: 16px;
+    outline: none;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+    background: #ffffffea;
+}
+
+.auth-card input:hover {
+    border-color: #ffb266;
+}
+
+.auth-card input:focus {
+    border-color: #ff9b3d;
+    box-shadow: 0 0 0 3px rgba(255, 155, 61, 0.25);
+    background: #fff7f0;
+}
+
+/* 로그인 버튼 – 기존 느낌 유지 + 깊이감 추가 */
+.auth-card button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(90deg, #ffa93d, #ff8612);
+    border: none;
+    color: white;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.auth-card button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(255,153,0,0.28);
+}
+
+/* 회원가입 박스 */
+.signup-box {
+    text-align: center;
+    margin-top: 18px;
+    font-size: 14px;
+    opacity: 0.95;
+}
+.signup-box a {
+    color: #ff7a12;
+    font-weight: 600;
+    text-decoration: none;
+    margin-left: 4px;
+}
+.signup-box a:hover {
+    text-decoration: underline;
+}
+
+/* 에러 메시지 */
+.error-msg {
+    margin-top: 14px;
+    text-align: center;
+    color: #e11d48;
+    font-size: 14px;
+}

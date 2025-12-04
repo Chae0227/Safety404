@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="/css/header.css" />
+    <script src="/js/header.js" defer></script>
+</head>
+
+<body>
+<header th:fragment="siteHeader" class="header">
+    <div class="header-inner">
+        <div class="logo">
+            <a href="/main">404 Safety Not Found</a>
+        </div>
+
+        <!-- 데스크탑 메뉴 -->
+        <nav class="desktop-nav">
+            <a href="/main">Home</a>
+            <a href="/chat">AI 체험</a>
+            <a href="/verify">정보 검증</a>
+            <a class="login-btn" href="/user/login">로그인</a>
+        </nav>
+
+        <!-- 모바일 메뉴 버튼 -->
+        <div class="mobile-menu-btn" onclick="toggleMobileNav()">☰</div>
+    </div>
+
+    <!-- 모바일 메뉴 -->
+    <nav class="mobile-nav" id="mobileNav">
+        <a href="/main">Home</a>
+        <a href="/chat">AI 체험</a>
+        <a href="/verify">정보 검증</a>
+        <a href="/user/login">로그인</a>
+    </nav>
+</header>
+</body>
+</html>
