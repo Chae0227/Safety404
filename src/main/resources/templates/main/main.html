@@ -10,13 +10,13 @@
 
     <!-- JS -->
     <script src="/js/header.js" defer></script>
-    <script src="/js/main.js" defer></script>
+	<script th:src="@{/js/header.js}" defer></script>
 </head>
 
 <body>
 
 <!-- 공통 헤더 삽입 -->
-<div th:replace="layout/header :: siteHeader"></div>
+<th:block th:replace="~{layout/header :: siteHeader}"></th:block>
 
 <!-- HERO SECTION -->
 <section class="hero">
@@ -90,6 +90,8 @@
 <footer class="footer">
     © 2025 Safety Not Found · Gemini · Supabase
 </footer>
-
 </body>
+<script th:if="${logoutSuccess}">
+    alert("로그아웃 되었습니다.");
+</script>
 </html>

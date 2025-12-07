@@ -5,20 +5,11 @@
     <title>AI Chat · Safety404</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/chat.css">
+	<link rel="stylesheet" href="/css/header.css">
+	<script th:src="@{/js/header.js}" defer></script>
 </head>
 <body>
-
-<!-- HEADER -->
-<header class="header">
-    <div class="header-inner">
-        <div class="logo">404 Safety Not Found</div>
-        <nav class="desktop-nav">
-            <a href="/main">Home</a>
-            <a href="/chat" class="active">AI 체험</a>
-            <a href="/verify">정보 검증</a>
-        </nav>
-    </div>
-</header>
+<th:block th:replace="~{layout/header :: siteHeader}"></th:block>
 
 <div class="chat-container">
 

@@ -3,8 +3,9 @@ package com.webframework.safety404.controller;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.ui.Model;
 
 import com.webframework.safety404.domain.User;
 import com.webframework.safety404.service.UserService;
@@ -22,23 +23,51 @@ public class UserController {
         return "user/signup";
     }
 
+    // 아이디 중복확인 API (AJAX)
+    @GetMapping("/check-username")
+    @ResponseBody
+    public boolean checkUsername(@RequestParam("username") String username) {
+        return service.existsUsername(username);
+    }
+
     // 회원가입 처리
     @PostMapping("/signup")
-    public String signup(User user, Model model) {
+    public String signup(
+            User user,
+            @RequestParam(name = "detailAddress", required = false) String detailAddress,
+            Model model
+    ) {
 
+        // 🔥 이메일 입력 안 했으면 "" → null 로 변환 (중복 문제 해결 핵심)
+        if (user.getEmail() != null && user.getEmail().trim().isEmpty()) {
+            user.setEmail(null);
+        }
+
+        // 아이디 중복 체크
         if (service.existsUsername(user.getUsername())) {
             model.addAttribute("error", "이미 사용 중인 아이디입니다.");
             return "user/signup";
         }
 
+        // 전화번호 중복 체크
         if (service.existsPhone(user.getPhone())) {
             model.addAttribute("error", "이미 등록된 전화번호입니다.");
             return "user/signup";
         }
 
+        // 이메일 중복 체크 (null일 때는 검사 X)
         if (user.getEmail() != null && service.existsEmail(user.getEmail())) {
             model.addAttribute("error", "이미 사용 중인 이메일입니다.");
             return "user/signup";
+        }
+
+        // 주소 처리
+        if (detailAddress != null && !detailAddress.isBlank()) {
+            if (user.getAddress() != null) {
+                user.setAddress(user.getAddress() + " " + detailAddress);
+            } else {
+                user.setAddress(detailAddress);
+            }
         }
 
         service.register(user);
@@ -53,8 +82,8 @@ public class UserController {
 
     // 로그인 처리
     @PostMapping("/login")
-    public String login(@RequestParam String username,
-                        @RequestParam String password,
+    public String login(@RequestParam("username") String username,
+                        @RequestParam("password") String password,
                         HttpSession session,
                         Model model) {
 
@@ -65,15 +94,15 @@ public class UserController {
             return "user/login";
         }
 
-        // 세션 저장
         session.setAttribute("loginUser", user);
         return "redirect:/";
     }
 
     // 로그아웃
     @GetMapping("/logout")
-    public String logout(HttpSession session) {
+    public String logout(HttpSession session, RedirectAttributes ra) {
         session.invalidate();
+        ra.addFlashAttribute("logoutSuccess", true);  // 홈화면에서 alert 띄울 데이터
         return "redirect:/";
     }
 }

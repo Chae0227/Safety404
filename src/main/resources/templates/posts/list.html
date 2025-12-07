@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시판</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/board.css">
+    <script th:src="@{/js/header.js}" defer></script>
+</head>
+
+<body>
+<!-- 공통 헤더 삽입 -->
+<th:block th:replace="~{layout/header :: siteHeader}"></th:block>
+
+<div class="container">
+
+    <div class="board-header">
+        <h1>📋 게시판</h1>
+        <a href="/posts/new" class="btn btn-orange">새 글 작성</a>
+    </div>
+
+    <!-- 🔎 검색 -->
+    <form action="/posts" method="get" class="search-row">
+
+        <select name="type">
+            <option value="all" th:selected="${type == 'all'}">제목+내용</option>
+            <option value="title" th:selected="${type == 'title'}">제목</option>
+            <option value="writer" th:selected="${type == 'writer'}">작성자</option>
+        </select>
+
+        <input type="text" name="keyword" placeholder="검색어를 입력하세요"
+               th:value="${keyword}"/>
+
+        <button type="submit" class="btn btn-orange">검색</button>
+    </form>
+
+    <!-- 카드 리스트 -->
+    <div class="card-grid">
+
+        <!-- 🔥 고정글 먼저 렌더링 -->
+        <a class="card"
+           th:each="post : ${posts}"
+           th:if="${post.pinned}"
+           th:href="@{|/posts/${post.id}|}">
+
+            <div class="pin">📌 고정글</div>
+            <h2 th:text="${post.title}">제목</h2>
+            <p class="preview" th:text="${post.content}">내용 미리보기...</p>
+
+            <div class="meta">
+                <span th:text="${post.writer}">작성자</span>
+                <span th:text="${#temporals.format(post.createdAt, 'yyyy.MM.dd')}"></span>
+            </div>
+        </a>
+
+        <!-- 🔥 일반글 렌더링 -->
+        <a class="card"
+           th:each="post : ${posts}"
+           th:if="${!post.pinned}"
+           th:href="@{|/posts/${post.id}|}">
+
+            <h2 th:text="${post.title}">제목</h2>
+            <p class="preview" th:text="${post.content}">내용 미리보기...</p>
+
+            <div class="meta">
+                <span th:text="${post.writer}">작성자</span>
+                <span th:text="${#temporals.format(post.createdAt, 'yyyy.MM.dd')}"></span>
+            </div>
+        </a>
+
+    </div>
+
+</div>
+</body>
+</html>

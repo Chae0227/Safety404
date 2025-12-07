@@ -5,6 +5,39 @@ const pwCheck = document.getElementById("passwordCheck");
 const pwStrengthMsg = document.getElementById("pwStrengthMsg");
 const pwMatchMsg = document.getElementById("pwMatchMsg");
 
+// ----------------------
+// 아이디 중복확인 AJAX + 메시지 표시
+// ----------------------
+document.getElementById("btnCheckId").addEventListener("click", () => {
+    const username = document.getElementById("username").value;
+    const msg = document.getElementById("idCheckMsg");
+
+    msg.className = "msg"; // 초기화
+
+    if (!username.trim()) {
+        msg.textContent = "아이디를 입력해주세요.";
+        msg.classList.add("red");
+        return;
+    }
+
+    fetch(`/user/check-username?username=${username}`)
+        .then(res => res.json())
+        .then(isTaken => {
+            if (isTaken === true) {
+                msg.textContent = "이미 사용 중인 아이디입니다.";
+                msg.classList.add("red");
+            } else {
+                msg.textContent = "사용 가능한 아이디입니다!";
+                msg.classList.add("green");
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            msg.textContent = "서버 오류가 발생했습니다.";
+            msg.classList.add("red");
+        });
+});
+
 
 // ----------------------
 // 비밀번호 강도 체크

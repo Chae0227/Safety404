@@ -14,19 +14,19 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;   // 자동 증가 회원번호
+    private Long id;   
 
     @Column(nullable = false, unique = true, length = 30)
-    private String username;   // 아이디
+    private String username;
 
     @Column(nullable = false)
-    private String password;   // 암호화된 비밀번호
+    private String password;
 
     @Column(nullable = false, length = 50)
     private String name;
 
     @Column(unique = true)
-    private String email;      // 선택값
+    private String email;
 
     @Column(nullable = false, unique = true, length = 20)
     private String phone;
@@ -35,8 +35,20 @@ public class User {
 
     private String address;
 
-    @Column(updatable = false)
-    private LocalDateTime createdAt = LocalDateTime.now();
+    @Column(nullable = false)
+    private String role = "ROLE_USER";
 
-    private LocalDateTime updatedAt = LocalDateTime.now();
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+
+    @PrePersist
+    public void onCreate() {
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void onUpdate() {
+        this.updatedAt = LocalDateTime.now();
+    }
 }

@@ -1,5 +1,7 @@
-/* 공통 header 스타일 */
-.header {
+/* -----------------------------------
+   공통 HEADER 스타일 (site-header)
+----------------------------------- */
+.site-header {
     width: 100%;
     background: #fff;
     box-shadow: 0 1px 6px rgba(0,0,0,0.05);
@@ -8,7 +10,8 @@
     z-index: 20;
 }
 
-.header-inner {
+/* 내부 wrapper */
+.site-header-inner {
     max-width: 1200px;
     margin: auto;
     height: 65px;
@@ -18,6 +21,7 @@
     padding: 0 24px;
 }
 
+/* 로고 */
 .logo a {
     font-size: 20px;
     font-weight: 700;
@@ -25,9 +29,10 @@
     text-decoration: none;
 }
 
+/* 데스크탑 메뉴 */
 .desktop-nav {
     display: flex;
-    align-items: center;   /* 메뉴 세로 정렬 중앙 고정 */
+    align-items: center;
     gap: 25px;
     margin-right: 20px;
 }
@@ -48,6 +53,7 @@
     box-shadow: 0 3px 10px rgba(255,153,0,0.25);
 }
 
+/* 모바일 메뉴 버튼 */
 .mobile-menu-btn {
     display: none;
     font-size: 28px;
@@ -67,6 +73,56 @@
     padding: 10px 0;
     text-decoration: none;
     color: #333;
+}
+
+.user-menu-wrapper {
+    position: relative;
+}
+
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    background: #f3f5f7;
+    cursor: pointer;
+}
+
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+	background: linear-gradient(135deg, #ffb066, #ff7a00);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 13px;
+}
+
+.user-dropdown {
+    position: absolute;
+    top: 46px;
+    right: 0;
+    width: 150px;
+    background: white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    border-radius: 12px;
+    padding: 10px 0;
+    display: none;
+}
+
+.user-dropdown a {
+    display: block;
+    padding: 10px 16px;
+    color: #333;
+    font-size: 14px;
+}
+
+.user-dropdown a:hover {
+    background: #f6f6f6;
 }
 
 /* 반응형 */

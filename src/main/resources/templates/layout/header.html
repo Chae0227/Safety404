@@ -7,19 +7,42 @@
 </head>
 
 <body>
-<header th:fragment="siteHeader" class="header">
-    <div class="header-inner">
+<header th:fragment="siteHeader" class="site-header">
+    <div class="site-header-inner">
         <div class="logo">
-            <a href="/main">404 Safety Not Found</a>
+            <a href="/">404 Safety Not Found</a>
         </div>
 
         <!-- 데스크탑 메뉴 -->
-        <nav class="desktop-nav">
-            <a href="/main">Home</a>
-            <a href="/chat">AI 체험</a>
-            <a href="/verify">정보 검증</a>
-            <a class="login-btn" href="/user/login">로그인</a>
-        </nav>
+		<nav class="desktop-nav">
+
+		    <!-- 공통 메뉴 -->
+		    <a href="/">Home</a>
+		    <a href="/chat">AI 체험</a>
+		    <a href="/verify">정보 검증</a>
+		    <a href="/posts">게시판</a>
+
+		    <!-- 로그인 상태 -->
+		    <div th:if="${session.loginUser != null}" class="user-menu-wrapper">
+
+		        <div class="user-menu" onclick="toggleUserDropdown()">
+		            <div class="user-avatar">
+						<span th:text="${#strings.substring(session.loginUser.name, session.loginUser.name.length() - 2)}">이니셜</span>
+		            </div>
+		            <span th:text="${session.loginUser.name}">사용자명</span>
+		            <span class="arrow">▾</span>
+		        </div>
+
+		        <!-- 드롭다운 -->
+		        <div id="userDropdown" class="user-dropdown">
+		            <a href="/mypage">마이페이지</a>
+		            <a href="/user/logout">로그아웃</a>
+		        </div>
+		    </div>
+
+		    <!-- 로그아웃 상태 -->
+		    <a th:if="${session.loginUser == null}" class="login-btn" href="/user/login">로그인</a>
+		</nav>
 
         <!-- 모바일 메뉴 버튼 -->
         <div class="mobile-menu-btn" onclick="toggleMobileNav()">☰</div>
@@ -33,5 +56,6 @@
         <a href="/user/login">로그인</a>
     </nav>
 </header>
+
 </body>
 </html>
