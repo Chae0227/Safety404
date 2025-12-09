@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${post.title}">자료 상세</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/verify.css">
+	<script th:src="@{/js/header.js}" defer></script>
+</head>
+
+<body>
+
+<th:block th:replace="~{layout/header :: siteHeader}"></th:block>
+
+<div class="container">
+
+    <!-- 🔥 제목 + 상태 뱃지 옆으로 -->
+    <div class="detail-header">
+
+        <div class="title-row">
+            <h1 class="detail-title" th:text="${post.title}">자료 제목</h1>
+
+            <!-- 제목 옆 상태 뱃지 -->
+            <span class="status-badge"
+                  th:class="'status ' + ${post.status}"
+                  th:text="${post.status}">
+            </span>
+        </div>
+
+        <div class="detail-buttons">
+            <a href="/verify" class="btn btn-gray">목록</a>
+
+            <!-- 일반 사용자: 본인 글만 수정/삭제 -->
+            <th:block th:if="${mine and !isAdmin}">
+                <a th:href="@{|/verify/${post.id}/edit|}" class="btn btn-orange">수정</a>
+
+                <form th:action="@{|/verify/${post.id}/delete|}"
+                      method="post"
+                      style="display:inline;">
+                    <button class="btn btn-red"
+                            onclick="return confirm('정말 삭제할까요?')">
+                        삭제
+                    </button>
+                </form>
+            </th:block>
+
+            <!-- 관리자: 승인 / 가리기 / 삭제 -->
+            <th:block th:if="${isAdmin}">
+                <form th:action="@{|/verify/${post.id}/approve|}"
+                      method="post"
+                      style="display:inline;">
+                    <button class="btn btn-orange"
+                            onclick="return confirm('이 자료를 승인하시겠습니까?')">
+                        승인
+                    </button>
+                </form>
+
+                <form th:action="@{|/verify/${post.id}/hide|}"
+                      method="post"
+                      style="display:inline;">
+                    <button class="btn btn-light"
+                            onclick="return confirm('이 자료를 가리시겠습니까?')">
+                        가리기
+                    </button>
+                </form>
+
+                <form th:action="@{|/verify/${post.id}/delete|}"
+                      method="post"
+                      style="display:inline;">
+                    <button class="btn btn-red"
+                            onclick="return confirm('정말 삭제할까요?')">
+                        삭제
+                    </button>
+                </form>
+            </th:block>
+        </div>
+    </div>
+
+    <div class="detail-card">
+
+        <!-- 🔥 info-row에서는 상태 삭제 완료 -->
+        <div class="info-row">
+            <span>
+                👤
+
+                <!-- 관리자: name(username) -->
+                <span th:if="${isAdmin}">
+                    <span th:text="${post.writer}">작성자</span>
+                    <span th:if="${writerUsername != null}">
+                        (<span th:text="${writerUsername}">username</span>)
+                    </span>
+                </span>
+
+                <!-- 일반 사용자 -->
+                <span th:if="${!isAdmin}"
+                      th:text="${post.writer != null ? post.writer : '비회원'}">
+                    비회원
+                </span>
+            </span>
+
+            <!-- 날짜 -->
+            <span>
+                🕓
+                <span th:text="${#temporals.format(post.createdAt, 'yyyy.MM.dd HH:mm')}">
+                    2025.01.01 12:00
+                </span>
+            </span>
+        </div>
+
+        <div class="detail-divider"></div>
+
+        <!-- 첨부 파일 -->
+        <div class="file-row">
+            <span class="file-label">📎 첨부파일</span>
+
+            <span th:if="${post.storedFilename != null}">
+                <span class="file-name" th:text="${post.originalFilename}">파일명.pdf</span>
+                <a th:href="@{|/verify/${post.id}/download|}" class="btn btn-light btn-sm">다운로드</a>
+            </span>
+
+            <span th:if="${post.storedFilename == null}" class="no-file">
+                첨부된 파일이 없습니다.
+            </span>
+        </div>
+
+        <div class="detail-divider"></div>
+
+        <!-- 본문 내용 -->
+        <div class="content-area" th:text="${post.content}">
+            자료 설명 및 내용이 들어가는 영역입니다.
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

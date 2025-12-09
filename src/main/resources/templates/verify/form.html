@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${post.id == null ? '자료 등록' : '자료 수정'}">자료 등록</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/verify.css">
+	<script th:src="@{/js/header.js}" defer></script>
+</head>
+
+<body>
+
+<th:block th:replace="~{layout/header :: siteHeader}"></th:block>
+
+<div class="container">
+
+    <div class="write-header">
+        <h1 th:text="${post.id == null ? '📂 자료 등록' : '✏️ 자료 수정'}"></h1>
+
+        <div class="write-buttons">
+            <a href="/verify" class="btn btn-gray">취소</a>
+            <button type="submit" form="verifyForm" class="btn btn-orange">저장</button>
+        </div>
+    </div>
+
+    <form id="verifyForm"
+          th:action="${post.id} != null ? @{'/verify/' + ${post.id} + '/edit'} : @{/verify}"
+          method="post"
+          enctype="multipart/form-data">
+
+        <div class="form-box">
+
+            <!-- 작성자 표시 -->
+            <div class="writer-row">
+                <span class="writer-label">👤 작성자</span>
+
+                <!-- 등록 페이지: writerName 표시 -->
+                <span th:if="${post.id == null}"
+                      th:text="${writerName}">작성자</span>
+
+                <!-- 수정 페이지: post.writer 표시 -->
+                <span th:if="${post.id != null}"
+                      th:text="${post.writer}">작성자</span>
+
+                <!-- 상태 -->
+                <span th:if="${post.id != null}">
+                    <span class="status-label">상태:</span>
+                    <span th:class="'status ' + ${post.status}"
+                          th:text="${post.status}">PENDING</span>
+                </span>
+            </div>
+
+            <!-- 제목 -->
+            <input type="text"
+                   name="title"
+                   placeholder="✏️ 자료 제목을 입력하세요"
+                   th:value="${post.title}"
+                   class="title-input"
+                   required/>
+
+            <!-- 내용 -->
+            <textarea name="content"
+                      placeholder="자료 설명 및 검증이 필요한 내용을 작성해주세요."
+                      th:text="${post.content}"></textarea>
+
+            <!-- 파일 업로드 -->
+            <div class="file-upload-row">
+                <label class="file-label">📎 첨부파일</label>
+
+                <div class="file-upload-inner">
+                    <input type="file" name="file"/>
+
+                    <div th:if="${post.storedFilename != null}"
+                         class="current-file">
+                        현재 파일:
+                        <span th:text="${post.originalFilename}"></span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+</html>

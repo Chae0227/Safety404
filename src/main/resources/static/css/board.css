@@ -267,3 +267,15 @@ textarea {
     background: #e5e5e5;
     margin: 15px 0;
 }
+
+.status {
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 13px;
+    color: #fff;
+}
+
+.status.PENDING { background: #ff9800; }
+.status.APPROVED { background: #4caf50; }
+.status.REJECTED { background: #f44336; }

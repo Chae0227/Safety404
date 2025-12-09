@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>승인된 자료실</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/verify.css">
+	<script th:src="@{/js/header.js}" defer></script>
+
+    <style>
+        /* 🔥 리스트와 동일하게 row 전체 클릭 가능 */
+        .row-link {
+            cursor: pointer;
+        }
+        .row-link:hover {
+            background: #f9f9f9;
+        }
+    </style>
+</head>
+
+<body>
+
+<th:block th:replace="~{layout/header :: siteHeader}"></th:block>
+
+<div class="container">
+
+    <div class="board-header">
+        <h1>승인된 자료실</h1>
+
+        <div class="header-buttons">
+            <a href="/verify" class="btn btn-gray">대기 목록 보기</a>
+            <a href="/verify/new" class="btn btn-orange">자료 올리기</a>
+        </div>
+    </div>
+
+    <table class="verify-table">
+        <thead>
+        <tr>
+            <th style="width: 60px;">번호</th>
+            <th>제목</th>
+            <th style="width: 140px;">작성자</th>
+            <th style="width: 120px;">상태</th>
+            <th style="width: 120px;">등록일</th>
+            <th style="width: 120px;">다운로드</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="post, i : ${posts}"
+            class="row-link"
+            th:onclick="|location.href='/verify/${post.id}'|">
+
+            <td th:text="${i.index + 1}">1</td>
+
+            <!-- 제목도 a태그 대신 텍스트로 -->
+            <td class="title-cell" th:text="${post.title}">제목</td>
+
+            <td th:text="${post.writer != null ? post.writer : '비회원'}">작성자</td>
+
+            <td>
+                <span th:class="'status ' + ${post.status}"
+                      th:text="${post.status}">APPROVED</span>
+            </td>
+
+            <td th:text="${#temporals.format(post.createdAt, 'yyyy.MM.dd')}">2025.01.01</td>
+
+            <!-- 다운로드 버튼만 클릭 이벤트 분리 -->
+            <td class="download-cell">
+                <a th:if="${post.storedFilename != null}"
+                   th:href="@{|/verify/${post.id}/download|}"
+                   class="btn btn-light btn-sm"
+                   onclick="event.stopPropagation()">
+                    다운로드
+                </a>
+                <span th:if="${post.storedFilename == null}" class="no-file">-</span>
+            </td>
+
+        </tr>
+
+        <tr th:if="${#lists.isEmpty(posts)}">
+            <td colspan="6" class="empty-row">승인된 자료가 없습니다.</td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>
