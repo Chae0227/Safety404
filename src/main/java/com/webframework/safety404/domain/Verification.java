@@ -20,6 +20,9 @@ public class Verification {
     private String content;
 
     private String writer;   // 작성자 이름 or 아이디
+    
+    @Enumerated(EnumType.STRING)
+    private Category category;
 
     // 파일 첨부
     private String originalFilename;   // 실제 파일 이름

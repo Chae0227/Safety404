@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>마이페이지</title>
+
+  <link rel="stylesheet" href="/css/header.css">
+  <link rel="stylesheet" href="/css/mypage.css">
+
+  <script th:src="@{/js/header.js}" defer></script>
+  <script th:src="@{/js/mypage.js}" defer></script>
+</head>
+
+<body>
+  <!-- 헤더 -->
+  <th:block th:replace="~{layout/header :: siteHeader}"></th:block>
+
+  <div class="mypage-container">
+
+    <!-- ======================
+         내 정보
+    ======================= -->
+    <section class="profile-section">
+      <div class="section-header">
+        <h2>내 정보</h2>
+        <button type="button" id="editBtn" class="btn-outline">정보 수정</button>
+      </div>
+
+      <form class="profile-form" action="/user/mypage" method="post">
+        <!-- ✅ POST에서 본인 체크/수정에 필요 -->
+        <input type="hidden" name="id" th:value="${user.id}" />
+
+        <div class="form-row">
+          <label>아이디</label>
+          <input type="text" th:value="${user.username}" disabled>
+        </div>
+
+        <div class="form-row">
+          <label>이름</label>
+          <input type="text" name="name" th:value="${user.name}" disabled>
+        </div>
+
+        <div class="form-row">
+          <label>이메일</label>
+          <input type="email" name="email" th:value="${user.email}" disabled>
+        </div>
+
+        <div class="form-row">
+          <label>전화번호</label>
+          <input type="text" name="phone" th:value="${user.phone}" disabled>
+        </div>
+
+        <div class="form-row">
+          <label>주소</label>
+          <input type="text" name="address" th:value="${user.address}" disabled>
+        </div>
+
+        <div class="form-row">
+          <label>생년월일</label>
+          <input type="date" name="birth" th:value="${user.birth}" disabled>
+        </div>
+
+        <p class="profile-hint">
+          아이디 및 권한 정보는 수정할 수 없습니다.
+        </p>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">저장</button>
+          <button type="button" id="cancelBtn" class="btn-outline">취소</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- ======================
+         내가 올린 글
+    ======================= -->
+    <section class="mypost-section">
+      <h2>내 검증 요청</h2>
+
+      <div class="post-filter">
+        <button type="button" class="filter-btn active" data-status="ALL">전체</button>
+        <button type="button" class="filter-btn" data-status="APPROVED">승인</button>
+        <button type="button" class="filter-btn" data-status="PENDING">미승인</button>
+      </div>
+
+      <table class="mypost-table">
+        <thead>
+          <tr>
+            <th>제목</th>
+            <th>상태</th>
+            <th>작성일</th>
+          </tr>
+        </thead>
+
+        <!-- ✅ 지금은 더미 / 다음 단계에서 th:each로 posts 붙이면 됨 -->
+        <tbody id="postBody">
+          <tr class="post-row" data-status="APPROVED">
+            <td>AI 답변 오류 제보합니다</td>
+            <td><span class="badge approved">승인</span></td>
+            <td>2025-12-20</td>
+          </tr>
+          <tr class="post-row" data-status="PENDING">
+            <td>통계 수치가 잘못됨</td>
+            <td><span class="badge pending">대기</span></td>
+            <td>2025-12-18</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+  </div>
+</body>
+</html>

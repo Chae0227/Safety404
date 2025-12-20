@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>404 Safety Not Found</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            padding: 32px;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #ffffff;
+            color: #000;
+            line-height: 1.5;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .info {
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        .info div {
+            margin-bottom: 4px;
+        }
+
+        .message {
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        .trace {
+            font-size: 12px;
+            color: #444;
+            white-space: pre-wrap;
+            border-top: 1px solid #ddd;
+            padding-top: 16px;
+            margin-top: 24px;
+        }
+
+        .actions {
+            margin-top: 32px;
+        }
+
+        .actions button {
+            padding: 6px 14px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Safety Error Page</h1>
+
+<div class="info">
+    <div>This application has encountered a critical error.</div>
+    <div id="errorDate"></div>
+</div>
+
+<div class="message">
+    <strong>There was an unexpected error (type=SafetyNotFound, status=404).</strong><br>
+    The system could not locate the user's independent 사고 process.<br>
+    AI dependency level exceeded the allowed threshold.<br>
+	당신의 사고를 찾을 수 없습니다.<br>
+</div>
+
+<div class="trace">
+com.safety404.core.SafetyException: Cognitive autonomy not found
+    at com.safety404.ai.DecisionEngine.evaluate(DecisionEngine.java:404)
+    at com.safety404.ai.DependencyMonitor.check(DependencyMonitor.java:127)
+    at com.safety404.system.RuntimeController.handle(RuntimeController.java:88)
+</div>
+
+<div class="actions">
+    <button onclick="location.href='/'">Go Back</button>
+</div>
+<script>
+    const now = new Date();
+
+    const options = {
+        weekday: 'short',
+        year: 'numeric',
+        month: 'short',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        timeZoneName: 'short'
+    };
+
+    document.getElementById("errorDate").innerText =
+        now.toLocaleString('en-US', options);
+</script>
+</body>
+</html>

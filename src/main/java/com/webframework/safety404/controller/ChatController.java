@@ -11,4 +11,9 @@ public class ChatController {
         return "chat/chat"; 
         // templates/chat/chat.html
     }
+    
+    @GetMapping("/chat/404")
+    public String safety404() {
+        return "chat/404"; // templates/chat/404.html
+    }
 }

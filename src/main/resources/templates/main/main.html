@@ -4,21 +4,16 @@
     <meta charset="UTF-8">
     <title>404 Safety Not Found</title>
 
-    <!-- CSS -->
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/main.css">
-
-    <!-- JS -->
-    <script src="/js/header.js" defer></script>
-	<script th:src="@{/js/header.js}" defer></script>
+    <script th:src="@{/js/header.js}" defer></script>
 </head>
 
 <body>
 
-<!-- 공통 헤더 삽입 -->
 <th:block th:replace="~{layout/header :: siteHeader}"></th:block>
 
-<!-- HERO SECTION -->
+<!-- HERO -->
 <section class="hero">
     <div class="glow"></div>
 
@@ -34,7 +29,7 @@
     <h2>404 Safety Not Found란?</h2>
     <p>
         AI는 편리함을 주지만 사고력을 약화시킬 수도 있습니다.<br>
-        이 플랫폼은 AI 의존도를 체험하며 스스로 사고를 복원하는 과정을 제공합니다.
+        이 플랫폼은 AI 의존을 인식하고 스스로 사고를 복원하도록 돕습니다.
     </p>
 </section>
 
@@ -42,56 +37,64 @@
 <section class="features">
     <div class="feature-card">
         <h3>AI 의존 체험</h3>
-        <p>Gemini 기반 AI 채팅을 통해 본인의 의존 게이지를 확인합니다.</p>
+        <p>AI 채팅을 통해 자신의 의존도를 체험합니다.</p>
         <a href="/chat">바로가기 →</a>
     </div>
 
     <div class="feature-card">
         <h3>정보 검증</h3>
-        <p>AI 답변 및 SNS 정보를 직접 검증하고 공유합니다.</p>
+        <p>AI·SNS 정보의 진위를 직접 검증합니다.</p>
         <a href="/verify">보러가기 →</a>
     </div>
 
     <div class="feature-card">
-        <h3>캠페인</h3>
-        <p>생각의 부재라는 안전불감 문제를 시각화합니다.</p>
+        <h3>사고 복원 캠페인</h3>
+        <p>생각하지 않는 위험을 기록합니다.</p>
         <a href="#campaign">자세히 →</a>
     </div>
 </section>
 
-<!-- RECENT -->
+<!-- RECENT (🔥 승인된 자료 연동) -->
 <section class="recent">
     <h2>최근 검증된 정보</h2>
 
     <div class="recent-list">
-        <div class="recent-card">
-            <h4>[예시] AI 오답 검증</h4>
-            <p>AI가 잘못 답한 내용을 검증한 사례</p>
-        </div>
-        <div class="recent-card">
-            <h4>[예시] 논문 기반 검증</h4>
-            <p>논문을 통해 검증 완료된 정보</p>
-        </div>
-        <div class="recent-card">
-            <h4>[예시] SNS 팩트체크</h4>
-            <p>SNS에서 유통되는 정보의 진위 확인</p>
+        <a class="recent-card"
+           th:each="post : ${recentPosts}"
+           th:href="@{|/verify/${post.id}|}">
+
+            <h4 th:text="${post.title}">제목</h4>
+            <p>
+                <span th:text="${post.category}"></span> ·
+                <span th:text="${#temporals.format(post.createdAt, 'yyyy.MM.dd')}"></span>
+            </p>
+        </a>
+
+        <div th:if="${#lists.isEmpty(recentPosts)}"
+             class="recent-card">
+            <h4>아직 승인된 자료가 없습니다</h4>
+            <p>첫 번째 검증을 남겨주세요</p>
         </div>
     </div>
 
-    <a href="/verify" class="more">전체 보기 →</a>
+    <a href="/verify/approved" class="more">전체 보기 →</a>
 </section>
 
-<!-- BANNER -->
+<!-- CAMPAIGN -->
 <section class="banner" id="campaign">
-    <div class="banner-img">캠페인/광고 영역</div>
+    <div class="banner-img">
+        AI는 답을 주지만,<br>사고는 대신하지 않습니다.
+		<br><br>[ 캠페인 / 광고 영역 ]
+    </div>
 </section>
 
-<!-- FOOTER -->
 <footer class="footer">
-    © 2025 Safety Not Found · Gemini · Supabase
+    © 2025 Safety Not Found
 </footer>
-</body>
+
 <script th:if="${logoutSuccess}">
     alert("로그아웃 되었습니다.");
 </script>
+
+</body>
 </html>

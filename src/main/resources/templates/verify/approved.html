@@ -1,89 +1,144 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>승인된 자료실</title>
-    <link rel="stylesheet" href="/css/header.css">
-    <link rel="stylesheet" href="/css/verify.css">
-	<script th:src="@{/js/header.js}" defer></script>
-
-    <style>
-        /* 🔥 리스트와 동일하게 row 전체 클릭 가능 */
-        .row-link {
-            cursor: pointer;
-        }
-        .row-link:hover {
-            background: #f9f9f9;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <title>승인된 자료실</title>
+  <link rel="stylesheet" href="/css/header.css" />
+  <link rel="stylesheet" href="/css/verifyApproved.css" />
+  <script th:src="@{/js/header.js}" defer></script>
 </head>
 
 <body>
-
 <th:block th:replace="~{layout/header :: siteHeader}"></th:block>
 
 <div class="container">
 
-    <div class="board-header">
-        <h1>승인된 자료실</h1>
+  <div class="board-header">
+    <h1>검증된 자료실</h1>
 
-        <div class="header-buttons">
-            <a href="/verify" class="btn btn-gray">대기 목록 보기</a>
-            <a href="/verify/new" class="btn btn-orange">자료 올리기</a>
-        </div>
+    <div class="header-buttons">
+      <a href="/verify" class="btn btn-gray">검증 요청 목록</a>
+      <a href="/verify/new" class="btn btn-orange">자료 올리기</a>
     </div>
+  </div>
 
-    <table class="verify-table">
-        <thead>
-        <tr>
-            <th style="width: 60px;">번호</th>
-            <th>제목</th>
-            <th style="width: 140px;">작성자</th>
-            <th style="width: 120px;">상태</th>
-            <th style="width: 120px;">등록일</th>
-            <th style="width: 120px;">다운로드</th>
-        </tr>
-        </thead>
+  <!-- 🔍 검색 -->
+  <form method="get" action="/verify/approved" class="search-row">
+    <select name="type">
+      <option value="all" th:selected="${type == null || type == 'all'}">제목 + 내용</option>
+      <option value="title" th:selected="${type == 'title'}">제목</option>
+      <option value="content" th:selected="${type == 'content'}">내용</option>
+    </select>
 
-        <tbody>
-        <tr th:each="post, i : ${posts}"
-            class="row-link"
-            th:onclick="|location.href='/verify/${post.id}'|">
+    <input type="text"
+           name="keyword"
+           placeholder="검색어를 입력하세요"
+           th:value="${keyword}" />
 
-            <td th:text="${i.index + 1}">1</td>
+    <button type="submit" class="btn btn-orange">검색</button>
+  </form>
 
-            <!-- 제목도 a태그 대신 텍스트로 -->
-            <td class="title-cell" th:text="${post.title}">제목</td>
+  <!-- ✅ 카테고리 필터 (정식 form) -->
+  <form method="get" action="/verify/approved" class="category-filter">
+    <!-- 검색어 유지 -->
+    <input type="hidden" name="keyword" th:value="${keyword}" />
 
-            <td th:text="${post.writer != null ? post.writer : '비회원'}">작성자</td>
+    <button type="submit"
+            name="category"
+            value=""
+            class="category-btn"
+            th:classappend="${category == null || category == ''} ? ' active'">
+      전체
+    </button>
 
-            <td>
-                <span th:class="'status ' + ${post.status}"
-                      th:text="${post.status}">APPROVED</span>
-            </td>
+    <button type="submit"
+            name="category"
+            value="MEDICAL"
+            class="category-btn"
+            th:classappend="${category == 'MEDICAL'} ? ' active'">
+      의학
+    </button>
 
-            <td th:text="${#temporals.format(post.createdAt, 'yyyy.MM.dd')}">2025.01.01</td>
+    <button type="submit"
+            name="category"
+            value="SCIENCE"
+            class="category-btn"
+            th:classappend="${category == 'SCIENCE'} ? ' active'">
+      과학
+    </button>
 
-            <!-- 다운로드 버튼만 클릭 이벤트 분리 -->
-            <td class="download-cell">
-                <a th:if="${post.storedFilename != null}"
-                   th:href="@{|/verify/${post.id}/download|}"
-                   class="btn btn-light btn-sm"
-                   onclick="event.stopPropagation()">
-                    다운로드
-                </a>
-                <span th:if="${post.storedFilename == null}" class="no-file">-</span>
-            </td>
+    <button type="submit"
+            name="category"
+            value="MATH"
+            class="category-btn"
+            th:classappend="${category == 'MATH'} ? ' active'">
+      수학
+    </button>
 
-        </tr>
+    <button type="submit"
+            name="category"
+            value="IT"
+            class="category-btn"
+            th:classappend="${category == 'IT'} ? ' active'">
+      컴퓨터 / IT
+    </button>
 
-        <tr th:if="${#lists.isEmpty(posts)}">
-            <td colspan="6" class="empty-row">승인된 자료가 없습니다.</td>
-        </tr>
-        </tbody>
-    </table>
+    <button type="submit"
+            name="category"
+            value="SOCIETY"
+            class="category-btn"
+            th:classappend="${category == 'SOCIETY'} ? ' active'">
+      사회 / 경제
+    </button>
+
+    <button type="submit"
+            name="category"
+            value="ENTERTAINMENT"
+            class="category-btn"
+            th:classappend="${category == 'ENTERTAINMENT'} ? ' active'">
+      연예
+    </button>
+
+    <button type="submit"
+            name="category"
+            value="ETC"
+            class="category-btn"
+            th:classappend="${category == 'ETC'} ? ' active'">
+      기타
+    </button>
+  </form>
+
+  <!-- 카드 리스트 -->
+  <div class="card-grid">
+    <a class="card"
+       th:each="post : ${posts}"
+       th:href="@{|/verify/${post.id}|}">
+
+      <div class="card-top">
+        <h2 th:text="${post.title}">제목</h2>
+
+        <span class="category-pill"
+              th:classappend="' category-' + ${post.category}"
+              th:text="${post.category}">
+        </span>
+      </div>
+
+      <p class="preview">
+        <span th:if="${post.storedFilename != null}">📎 첨부파일 있음</span>
+        <span th:if="${post.storedFilename == null}">첨부파일 없음</span>
+      </p>
+
+      <div class="meta">
+        <span th:text="${post.writer != null ? post.writer : '비회원'}"></span>
+        <span th:text="${#temporals.format(post.createdAt, 'yyyy.MM.dd')}"></span>
+      </div>
+    </a>
+
+    <div th:if="${#lists.isEmpty(posts)}" class="empty-row">
+      승인된 자료가 없습니다.
+    </div>
+  </div>
 
 </div>
-
 </body>
 </html>

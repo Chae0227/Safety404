@@ -2,10 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${post.id == null ? '자료 등록' : '자료 수정'}">자료 등록</title>
+    <title th:text="${post.id == null ? '검증할 자료 등록하기' : '등록된 글 수정'}">검증할 자료 등록하기</title>
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/verify.css">
-	<script th:src="@{/js/header.js}" defer></script>
+	<script src="/js/verify.js" defer></script>
+    <script th:src="@{/js/header.js}" defer></script>
 </head>
 
 <body>
@@ -15,7 +16,7 @@
 <div class="container">
 
     <div class="write-header">
-        <h1 th:text="${post.id == null ? '📂 자료 등록' : '✏️ 자료 수정'}"></h1>
+        <h1 th:text="${post.id == null ? '📂 검증할 자료 등록하기' : '✏️ 등록된 글 수정'}"></h1>
 
         <div class="write-buttons">
             <a href="/verify" class="btn btn-gray">취소</a>
@@ -30,59 +31,59 @@
 
         <div class="form-box">
 
-            <!-- 작성자 표시 -->
-            <div class="writer-row">
-                <span class="writer-label">👤 작성자</span>
+			<div class="writer-category-row">
+			    <!-- 작성자 -->
+			    <div class="writer-row">
+			        <span class="writer-label">👤 작성자</span>
+			        <span th:text="${post.id == null ? writerName : post.writer}"></span>
+			    </div>
 
-                <!-- 등록 페이지: writerName 표시 -->
-                <span th:if="${post.id == null}"
-                      th:text="${writerName}">작성자</span>
+			    <!-- 카테고리 -->
+			    <div class="category-inline">
+			        <span class="category-label">📂 카테고리</span>
+			        <select name="category" required>
+			            <option value="">선택</option>
+			            <option value="MEDICAL">의학</option>
+			            <option value="SCIENCE">과학</option>
+			            <option value="MATH">수학</option>
+			            <option value="IT">컴퓨터 / IT</option>
+			            <option value="SOCIETY">사회 / 경제</option>
+			            <option value="ENTERTAINMENT">연예</option>
+			            <option value="ETC">기타</option>
+			        </select>
+			    </div>
+			</div>
 
-                <!-- 수정 페이지: post.writer 표시 -->
-                <span th:if="${post.id != null}"
-                      th:text="${post.writer}">작성자</span>
+			<!-- 제목 -->
+			<div class="field-group">
+			    <label class="field-label">✏️ 검증할 자료 제목</label>
+			    <input type="text"
+			           name="title"
+			           th:value="${post.title}"
+			           class="title-input"
+			           required/>
+			</div>
 
-                <!-- 상태 -->
-                <span th:if="${post.id != null}">
-                    <span class="status-label">상태:</span>
-                    <span th:class="'status ' + ${post.status}"
-                          th:text="${post.status}">PENDING</span>
-                </span>
-            </div>
+			<!-- 내용 -->
+			<div class="field-group">
+			    <label class="field-label">📝 검증 자료 증명 내용</label>
+			    <textarea name="content"
+			              th:text="${post.content}"></textarea>
+			</div>
 
-            <!-- 제목 -->
-            <input type="text"
-                   name="title"
-                   placeholder="✏️ 자료 제목을 입력하세요"
-                   th:value="${post.title}"
-                   class="title-input"
-                   required/>
 
-            <!-- 내용 -->
-            <textarea name="content"
-                      placeholder="자료 설명 및 검증이 필요한 내용을 작성해주세요."
-                      th:text="${post.content}"></textarea>
-
-            <!-- 파일 업로드 -->
+            <!-- 파일 -->
             <div class="file-upload-row">
-                <label class="file-label">📎 첨부파일</label>
-
-                <div class="file-upload-inner">
-                    <input type="file" name="file"/>
-
-                    <div th:if="${post.storedFilename != null}"
-                         class="current-file">
-                        현재 파일:
-                        <span th:text="${post.originalFilename}"></span>
-                    </div>
+                <label>📎 첨부파일</label>
+                <input type="file" name="file"/>
+                <div th:if="${post.storedFilename != null}">
+                    현재 파일: <span th:text="${post.originalFilename}"></span>
                 </div>
             </div>
 
         </div>
-
     </form>
 
 </div>
-
 </body>
 </html>

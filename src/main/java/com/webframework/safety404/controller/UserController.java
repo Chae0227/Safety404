@@ -17,20 +17,20 @@ public class UserController {
 
     private final UserService service;
 
-    // 회원가입 폼
+    // ===============================
+    // 회원가입
+    // ===============================
     @GetMapping("/signup")
     public String signupForm() {
         return "user/signup";
     }
 
-    // 아이디 중복확인 API (AJAX)
     @GetMapping("/check-username")
     @ResponseBody
     public boolean checkUsername(@RequestParam("username") String username) {
         return service.existsUsername(username);
     }
 
-    // 회원가입 처리
     @PostMapping("/signup")
     public String signup(
             User user,
@@ -38,30 +38,25 @@ public class UserController {
             Model model
     ) {
 
-        // 🔥 이메일 입력 안 했으면 "" → null 로 변환 (중복 문제 해결 핵심)
         if (user.getEmail() != null && user.getEmail().trim().isEmpty()) {
             user.setEmail(null);
         }
 
-        // 아이디 중복 체크
         if (service.existsUsername(user.getUsername())) {
             model.addAttribute("error", "이미 사용 중인 아이디입니다.");
             return "user/signup";
         }
 
-        // 전화번호 중복 체크
         if (service.existsPhone(user.getPhone())) {
             model.addAttribute("error", "이미 등록된 전화번호입니다.");
             return "user/signup";
         }
 
-        // 이메일 중복 체크 (null일 때는 검사 X)
         if (user.getEmail() != null && service.existsEmail(user.getEmail())) {
             model.addAttribute("error", "이미 사용 중인 이메일입니다.");
             return "user/signup";
         }
 
-        // 주소 처리
         if (detailAddress != null && !detailAddress.isBlank()) {
             if (user.getAddress() != null) {
                 user.setAddress(user.getAddress() + " " + detailAddress);
@@ -74,13 +69,14 @@ public class UserController {
         return "redirect:/user/login";
     }
 
-    // 로그인 폼
+    // ===============================
+    // 로그인 / 로그아웃
+    // ===============================
     @GetMapping("/login")
     public String loginForm() {
         return "user/login";
     }
 
-    // 로그인 처리
     @PostMapping("/login")
     public String login(@RequestParam("username") String username,
                         @RequestParam("password") String password,
@@ -98,11 +94,62 @@ public class UserController {
         return "redirect:/";
     }
 
-    // 로그아웃
     @GetMapping("/logout")
     public String logout(HttpSession session, RedirectAttributes ra) {
         session.invalidate();
-        ra.addFlashAttribute("logoutSuccess", true);  // 홈화면에서 alert 띄울 데이터
+        ra.addFlashAttribute("logoutSuccess", true);
         return "redirect:/";
+    }
+
+    // ===============================
+    // 마이페이지 (조회)
+    // ===============================
+    @GetMapping("/mypage")
+    public String myPage(HttpSession session, Model model) {
+
+        User loginUser = (User) session.getAttribute("loginUser");
+
+        if (loginUser == null) {
+            return "redirect:/user/login";
+        }
+
+        model.addAttribute("user", loginUser);
+        return "user/mypage";
+    }
+
+    // ===============================
+    // 마이페이지 (정보 수정)
+    // ===============================
+    @PostMapping("/mypage")
+    public String updateMyPage(
+            User formUser,
+            HttpSession session,
+            RedirectAttributes ra
+    ) {
+
+        User loginUser = (User) session.getAttribute("loginUser");
+
+        if (loginUser == null) {
+            return "redirect:/user/login";
+        }
+
+        // 🔐 본인만 수정 가능
+        if (!loginUser.getId().equals(formUser.getId())) {
+            return "redirect:/user/mypage";
+        }
+
+        // 이메일 빈값 처리
+        if (formUser.getEmail() != null && formUser.getEmail().trim().isEmpty()) {
+            formUser.setEmail(null);
+        }
+
+        service.updateMyInfo(formUser);
+
+        // 세션 갱신
+        User updatedUser = service.findById(loginUser.getId());
+        session.setAttribute("loginUser", updatedUser);
+
+        ra.addFlashAttribute("success", true);
+        return "redirect:/user/mypage";
     }
 }

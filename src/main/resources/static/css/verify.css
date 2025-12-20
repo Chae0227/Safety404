@@ -320,3 +320,258 @@ textarea {
     font-weight: 700;
     color: white;
 }
+
+/* ===================================
+   📂 카테고리 스타일 (정리본)
+=================================== */
+
+/* -----------------------------------
+   🔸 작성자 + 카테고리 한 줄 묶음
+----------------------------------- */
+.writer-category-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+/* 🔥 카테고리를 오른쪽 끝으로 */
+.writer-category-row .category-inline {
+    margin-left: auto;
+}
+
+/* -----------------------------------
+   🔸 카테고리 (가로 배치 – 작성자 옆)
+----------------------------------- */
+.category-inline {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* 카테고리 라벨 */
+.category-inline .category-label {
+    display: flex;
+    align-items: center;      /* 🔥 아이콘 + 텍스트 수직 정렬 */
+    height: 36px;             /* 🔥 select랑 높이 통일 */
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text-dark);
+    white-space: nowrap;
+}
+
+/* 드롭다운 */
+.category-inline select {
+    height: 36px;             /* 🔥 기준 높이 */
+    padding: 0 12px;
+    min-width: 180px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    font-size: 14px;
+    background: #fff;
+    cursor: pointer;
+}
+
+.category-inline select:focus {
+    outline: none;
+    border-color: var(--main-orange);
+}
+
+/* -----------------------------------
+   🔸 카테고리 뱃지 (목록 / 상세)
+----------------------------------- */
+.category-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 14px;
+    font-size: 12px;
+    font-weight: 600;
+    background: #eee;
+    color: #555;
+}
+
+.detail-category {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    background: #f3f3f3;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* -----------------------------------
+   🔸 카테고리 색상
+----------------------------------- */
+.category-MEDICAL { background: #ffeaea; color: #c62828; }
+.category-SCIENCE { background: #e3f2fd; color: #1565c0; }
+.category-MATH { background: #e8f5e9; color: #2e7d32; }
+.category-IT { background: #ede7f6; color: #4527a0; }
+.category-SOCIETY { background: #fff8e1; color: #8d6e63; }
+.category-ENTERTAINMENT { background: #fce4ec; color: #ad1457; }
+.category-ETC { background: #f5f5f5; color: #616161; }
+
+/* -----------------------------------
+   🔎 검색 바 (verify 전용)
+----------------------------------- */
+.search-row {
+    margin: 25px 0 30px;
+    display: flex;
+    align-items: center;   /* 🔥 수직 정렬 핵심 */
+    gap: 10px;
+}
+
+/* 카테고리 select */
+.search-row select {
+    height: 44px;
+    padding: 0 14px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    min-width: 120px;
+}
+
+/* 검색 input */
+.search-row input {
+    height: 44px;
+    flex: 1;
+    padding: 0 16px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    font-size: 15px;
+    box-sizing: border-box;
+}
+
+/* 검색 버튼 */
+.search-row button {
+    height: 44px;
+    padding: 0 22px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.search-row select:focus,
+.search-row input:focus {
+    outline: none;
+    border-color: var(--main-orange);
+    box-shadow: 0 0 0 2px rgba(255, 122, 0, 0.15);
+}
+
+.verify-table td:nth-child(3) {
+    text-align: center;
+}
+
+.category-badge {
+    min-width: 56px;
+    text-align: center;
+}
+
+.verify-table td:nth-child(2) {
+    font-weight: 600;
+}
+
+.verify-table tbody tr:hover td:nth-child(2) {
+    text-decoration: underline;
+}
+
+/* ===============================
+   🔥 상세 페이지 메타 레이아웃
+=============================== */
+
+/* 카테고리 줄 */
+.detail-category-row {
+    margin-bottom: 12px;
+}
+
+/* 작성자 + 날짜 */
+.detail-meta-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* 🔥 날짜 오른쪽 고정 */
+    font-size: 15px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+/* 작성자 */
+.detail-meta-row .writer {
+    font-weight: 600;
+}
+
+/* 날짜 */
+.detail-meta-row .date {
+    color: #777;
+    white-space: nowrap;
+}
+
+/* ===============================
+   🔥 verify 테이블 레이아웃 안정화 (최종)
+   기존 CSS 유지 + 이것만 추가
+=============================== */
+
+/* 테이블 레이아웃 고정 */
+.verify-table {
+    table-layout: fixed;
+}
+
+/* 컬럼 폭 재조정 (시각적으로 자연스러운 비율) */
+.verify-table th:nth-child(1),
+.verify-table td:nth-child(1) { width: 6%; }   /* 번호 */
+
+.verify-table th:nth-child(2),
+.verify-table td:nth-child(2) { width: 28%; }  /* 제목 */
+
+.verify-table th:nth-child(3),
+.verify-table td:nth-child(3) { width: 12%; }  /* 카테고리 */
+
+.verify-table th:nth-child(4),
+.verify-table td:nth-child(4) { width: 14%; }  /* 작성자 */
+
+.verify-table th:nth-child(5),
+.verify-table td:nth-child(5) { width: 12%; }  /* 상태 */
+
+.verify-table th:nth-child(6),
+.verify-table td:nth-child(6) { width: 12%; }  /* 등록일 */
+
+.verify-table th:nth-child(7),
+.verify-table td:nth-child(7) { width: 10%; }  /* 다운로드 */
+
+/* 헤더 전체 중앙 정렬 */
+.verify-table th {
+    text-align: center;
+}
+
+/* 제목 컬럼만 좌측 정렬 */
+.verify-table th:nth-child(2),
+.verify-table td:nth-child(2) {
+    text-align: left;
+}
+
+/* 짧은 값들(배지/상태/날짜) 중앙 정렬 */
+.verify-table th:nth-child(3),
+.verify-table th:nth-child(5),
+.verify-table th:nth-child(6),
+.verify-table td:nth-child(3),
+.verify-table td:nth-child(5),
+.verify-table td:nth-child(6) {
+    text-align: center;
+}
+
+/* ===============================
+   🔧 번호 / 작성자 가운데 정렬 (미세 조정)
+=============================== */
+
+/* 번호 */
+.verify-table th:nth-child(1),
+.verify-table td:nth-child(1) {
+    text-align: center;
+}
+
+/* 작성자 */
+.verify-table th:nth-child(4),
+.verify-table td:nth-child(4) {
+    text-align: center;
+}

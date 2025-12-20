@@ -8,13 +8,8 @@
     <script th:src="@{/js/header.js}" defer></script>
 
     <style>
-        /* 🔥 테이블 row 전체 클릭 가능하도록 */
-        .row-link {
-            cursor: pointer;
-        }
-        .row-link:hover {
-            background: #f9f9f9;
-        }
+        .row-link { cursor: pointer; }
+        .row-link:hover { background: #f9f9f9; }
     </style>
 </head>
 
@@ -26,22 +21,43 @@
 
     <div class="board-header">
         <h1>정보 검증 요청 목록</h1>
-
         <div class="header-buttons">
             <a href="/verify/approved" class="btn btn-light">승인된 자료 보기</a>
             <a href="/verify/new" class="btn btn-orange">자료 올리기</a>
         </div>
     </div>
 
+    <!-- 🔎 검색 바 (게시판 스타일) -->
+    <form action="/verify" method="get" class="search-row">
+        <select name="category">
+            <option value="">전체</option>
+            <option value="MEDICAL" th:selected="${category == 'MEDICAL'}">의학</option>
+            <option value="SCIENCE" th:selected="${category == 'SCIENCE'}">과학</option>
+            <option value="MATH" th:selected="${category == 'MATH'}">수학</option>
+            <option value="IT" th:selected="${category == 'IT'}">컴퓨터 / IT</option>
+            <option value="SOCIETY" th:selected="${category == 'SOCIETY'}">사회 / 경제</option>
+            <option value="ENTERTAINMENT" th:selected="${category == 'ENTERTAINMENT'}">연예</option>
+            <option value="ETC" th:selected="${category == 'ETC'}">기타</option>
+        </select>
+
+        <input type="text"
+               name="keyword"
+               placeholder="제목 또는 내용 검색"
+               th:value="${keyword}" />
+
+        <button type="submit" class="btn btn-orange">검색</button>
+    </form>
+
     <table class="verify-table">
         <thead>
         <tr>
-            <th style="width: 60px;">번호</th>
+            <th style="width:60px;">번호</th>
             <th>제목</th>
-            <th style="width: 140px;">작성자</th>
-            <th style="width: 120px;">상태</th>
-            <th style="width: 120px;">등록일</th>
-            <th style="width: 120px;">다운로드</th>
+            <th style="width:120px;">카테고리</th>
+            <th style="width:140px;">작성자</th>
+            <th style="width:120px;">상태</th>
+            <th style="width:120px;">등록일</th>
+            <th style="width:120px;">다운로드</th>
         </tr>
         </thead>
 
@@ -50,19 +66,25 @@
             class="row-link"
             th:onclick="|location.href='/verify/${post.id}'|">
 
-            <td th:text="${i.index + 1}">1</td>
+            <td th:text="${i.index + 1}"></td>
+            <td th:text="${post.title}"></td>
 
-            <td class="title-cell"
-                th:text="${post.title}">제목</td>
+            <td>
+                <span class="category-badge"
+                      th:classappend="' category-' + ${post.category}"
+                      th:text="${post.category}">
+                </span>
+            </td>
 
-            <td th:text="${post.writer != null ? post.writer : '비회원'}">작성자</td>
+            <td th:text="${post.writer != null ? post.writer : '비회원'}"></td>
 
             <td>
                 <span th:class="'status ' + ${post.status}"
-                      th:text="${post.status}">PENDING</span>
+                      th:text="${post.status}">
+                </span>
             </td>
 
-            <td th:text="${#temporals.format(post.createdAt, 'yyyy.MM.dd')}">2025.01.01</td>
+            <td th:text="${#temporals.format(post.createdAt, 'yyyy.MM.dd')}"></td>
 
             <td class="download-cell">
                 <a th:if="${post.storedFilename != null}"
@@ -73,16 +95,16 @@
                 </a>
                 <span th:if="${post.storedFilename == null}" class="no-file">-</span>
             </td>
-
         </tr>
 
         <tr th:if="${#lists.isEmpty(posts)}">
-            <td colspan="6" class="empty-row">등록된 검증 요청이 없습니다.</td>
+            <td colspan="7" class="empty-row">
+                등록된 검증 요청이 없습니다.
+            </td>
         </tr>
         </tbody>
     </table>
 
 </div>
-
 </body>
 </html>
