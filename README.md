@@ -32,7 +32,7 @@ AI의 정보 정확도를 스스로 검증함으로써
 
 - 김은채 (KIM EUNCHAE)
 - **풀스택 개발자**
-- 백엔드 중심 (Spring Boot · Supabase · API 설계 · DB 모델링)
+- 백엔드 중심 (Spring Boot · NeonDB · API 설계 · DB 모델링)
 - 프론트엔드(UI/UX · 인터랙션 구현)도 강점 보유
 - Gemini API · AI 인퍼런스 시스템 제작 경험
 - 프로젝트 기획 → 구조 설계 → 개발 → 애니메이션까지 전체 주도 가능
@@ -45,13 +45,12 @@ AI의 정보 정확도를 스스로 검증함으로써
 - HTML, CSS, JavaScript  
 - 반응형 UI  
 - 인터랙션(Glitch, Animation, Fragment FX)  
-- Tailwind (확장 가능)  
 
 ### 🔸 Backend  
 - Spring Boot 3 (Java 21)  
 - Spring MVC  
 - REST API  
-- Supabase(PostgreSQL)  
+- NeonDB
 - Gemini API  
 
 ### 🔸 Tools  
